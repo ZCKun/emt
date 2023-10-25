@@ -148,6 +148,7 @@ class Account:
 
 
 def account_deserialize(data: dict) -> Optional[Account]:
+    pos = [position_deserialize(i) for i in data['positions']]
     return Account(
         Asset(
             get_float(data, 'Zzc'),
@@ -159,7 +160,7 @@ def account_deserialize(data: dict) -> Optional[Account]:
             get_float(data, 'Dryk'),
             get_float(data, 'Djzj')
         ),
-        [position_deserialize(i) for i in data['positions']]
+        [i for i in pos if i.hold_qty > 0]
     )
 
 

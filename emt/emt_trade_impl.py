@@ -96,13 +96,17 @@ class EMTTrade(TradeApi):
             return
 
         data = resp.json()
-        resp = response_deserialize(data)
-        if resp.status == 0 and resp.message.strip() == '':
-            logger.info(f"login success for {resp.data[0]['khmc']}({username})")
-            self._get_em_validatekey()
-            if self._em_validatekey:
-                self.query_asset_and_position()
-        return resp
+        try:
+            resp = response_deserialize(data)
+            if resp.status == 0 and resp.message.strip() == '':
+                logger.info(f"login success for {resp.data[0]['khmc']}({username})")
+                self._get_em_validatekey()
+                if self._em_validatekey:
+                    self.query_asset_and_position()
+            return resp
+        except KeyError as e:
+            logger.error(f"param data found exception:[{e}], [data={data}]")
+            return None
 
     def _get_em_validatekey(self):
         """ 获取 em_validatekey """
