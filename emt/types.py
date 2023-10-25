@@ -20,6 +20,7 @@ class OrderStatus(enum.IntEnum):
 _order_status_map = {
     '已成': OrderStatus.FULL_TRADED,
     '部成': OrderStatus.PART_TRADED,
+    '已撤': OrderStatus.CANCELED,
     '已受理': OrderStatus.INSERT_ACCEPTED,
 }
 
