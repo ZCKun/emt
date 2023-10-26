@@ -18,6 +18,7 @@ class EMTTradeDemo:
         self._cfg = cfg
         self._emt_trade = EMTTrade()
         self._is_ready: bool = False
+        self._login()
 
     def _login(self):
         resp = self._emt_trade.login(self._cfg.username, self._cfg.password)
