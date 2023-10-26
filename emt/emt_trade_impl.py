@@ -267,8 +267,8 @@ class EMTTrade(TradeApi):
             resp = response_deserialize(resp.json())
             logger.error(f"cancel order {code} fail, message={resp}")
             return False
-        except Exception:
-            pass
+        except Exception as e:
+            logger.error(f"cancel order to parse response found exception: [{e}]")
 
         logger.debug(f"cancel_order> {resp.text}")
         return True
